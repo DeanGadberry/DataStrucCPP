@@ -31,7 +31,7 @@ void Node::setx(int t_x)
 
 void Node::setptr(Node* t_nextNode)
 {
-    this->nextNode = t_nextNode; /// problem?
+    this->nextNode = t_nextNode;
 }
 
 int Node::getx()
@@ -84,10 +84,10 @@ void LinkList::addnode(Node t_addnode)
 {
     Node* newnode = new Node(t_addnode.getptr(), t_addnode.getx());
     Node* nextnode = this->first_node;
-    Node* thisnode = {};
+    Node* thisnode = nullptr;
     while (nextnode != nullptr)
     {
-        Node* thisnode = nextnode; /// both point to first node
+        thisnode = nextnode; /// both point to first node
         nextnode = thisnode->getptr(); /// node what is the next node?
     }
     // list(node(10)-> node(20)-> null)
@@ -98,7 +98,32 @@ void LinkList::addnode(Node t_addnode)
 
 void LinkList::removenode(int x)
 {
+    // loop through list, and look for x value and remove it...
+    Node* nextnode = this->first_node;
+    
+    // what is the problem, read access vio, but the next node only loops if not null, so how am I getting this error
+    while (nextnode != nullptr)
+    {
+        // traverse the linked list
+        Node* thisnode = nextnode;
+        nextnode = thisnode->getptr();
+        if (nextnode->getx() == x)
+        {
+            // remove this node
+            // grab the node after
+            Node* rejoin = nextnode->getptr();
 
+            // this node set beyond next node
+            thisnode->setptr(rejoin);
+
+            // after the node is unlinked, then remove the node
+            delete nextnode;
+
+            // continue looping
+            nextnode = rejoin;
+        }
+
+    }
 
 }
 
@@ -109,10 +134,10 @@ LinkList::~LinkList()
 
     while (nextNode != nullptr)
     {
-        // grab this node in one hand and the next in the other
+        // hold this node in one pointer and the next in the other
         Node* thisnode = nextNode;
         nextNode = thisnode->getptr();
-        // delete one node, while hand holds on to next node
+        // delete one node, while pointer holds on to next node
         delete thisnode;
     }
     std::cout << "list deleted!" << std::endl;
@@ -120,35 +145,18 @@ LinkList::~LinkList()
 
 int main()
 {
-    // Linkedlist (first pointer to node one)(Node(10) -> Node(20) -> Node(30) -> null)
-    // 
-    // adding nodes
-    // list (Node(10)->null)
-    // list (Node(10)->Node(20)->Node(30)->null)
-    // Node new
-    // Node fistnode
-    // Node nextnode->null | newnode
-    // 
-    // jerry -> Bruce -> Carla (10 bytes) x 100
-    // pointer (1 byte) x 100 functions = 100 bytes
-    // heap memory "new" <- no var name
-    // no var name <- where is it?
-    // heap meme <- must be pointed to
-
-    //
-    
-    int x = 10;
-    int* ptr = nullptr;
-    
-    ptr = &x;
-    std::cout << *ptr;
-
 
     Node newnode(nullptr, 10);
     LinkList list(newnode);
-    //Node evennewernode(nullptr, 20);
-    //list.addnode(evennewernode);
+    for (int i = 0; i <= 10; i++)
+    {
+        Node tempnode(nullptr, i);
+        list.addnode(tempnode);
+    }
     
     list.printlist();
 
+    list.removenode(1);
+
+    list.printlist();
 }
