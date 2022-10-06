@@ -102,7 +102,7 @@ void LinkList::removenode(int x)
     Node* nextnode = this->first_node;
     
     // what is the problem, read access vio, but the next node only loops if not null, so how am I getting this error
-    while (nextnode != nullptr)
+    while (nextnode->getptr() != nullptr)
     {
         // traverse the linked list
         Node* thisnode = nextnode;
@@ -156,7 +156,8 @@ int main()
     
     list.printlist();
 
-    list.removenode(1);
+    list.removenode(4);
+    list.removenode(5);
 
     list.printlist();
 }
