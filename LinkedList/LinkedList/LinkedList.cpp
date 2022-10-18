@@ -55,17 +55,17 @@ class LinkList
 private:
     Node *first_node;
 public:
-    LinkList(Node);
+    LinkList(int, Node*);
     void printlist();
-    void addnode(Node);
+    void addnode(int);
     void removenode(int);
     ~LinkList();
 };
 
-LinkList::LinkList(Node f_node)
+LinkList::LinkList(int t_x, Node* t_ptr = nullptr)
 {
     // we will point to the first node!
-    this->first_node = new Node(f_node.getptr(), f_node.getx());
+    this->first_node = new Node(t_ptr, t_x);
 }
 
 void LinkList::printlist()
@@ -80,9 +80,9 @@ void LinkList::printlist()
     std::cout << "end of list" << std::endl;
 }
 
-void LinkList::addnode(Node t_addnode)
+void LinkList::addnode(int t_x)
 {
-    Node* newnode = new Node(t_addnode.getptr(), t_addnode.getx());
+    Node* newnode = new Node(nullptr, t_x);
     Node* nextnode = this->first_node;
     Node* thisnode = nullptr;
     while (nextnode != nullptr)
@@ -146,18 +146,17 @@ LinkList::~LinkList()
 int main()
 {
 
-    Node newnode(nullptr, 10);
-    LinkList list(newnode);
+    // first node val 10, points to nothing
+    LinkList list(10, nullptr);
     for (int i = 0; i <= 10; i++)
     {
-        Node tempnode(nullptr, i);
-        list.addnode(tempnode);
+        list.addnode(i);
     }
     
     list.printlist();
 
     list.removenode(4);
-    list.removenode(5);
+    list.removenode(9);
 
     list.printlist();
 }
