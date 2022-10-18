@@ -121,6 +121,13 @@ void LinkList::removenode(int x)
 
             // continue looping
             nextnode = rejoin;
+
+            // final node deletion exception fix
+            if (nextnode == nullptr)
+            {
+                // is last node, so no need to loop anymore
+                break;
+            }
         }
 
     }
@@ -156,7 +163,7 @@ int main()
     list.printlist();
 
     list.removenode(4);
-    list.removenode(9);
+    list.removenode(10);
 
     list.printlist();
 }
