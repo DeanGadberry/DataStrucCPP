@@ -1,5 +1,9 @@
 // LinkedList.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
+// to-do:
+//      -optimize print list member function
+//      -create a ordered linkedlist
+//      -first node is not deleted
 
 #include <iostream>
 
@@ -20,6 +24,7 @@ public:
 
 Node::Node(Node *t_nextNode = nullptr, int t_x = 10)
 {
+    // set the Node's val and it's pointer
     this->x = t_x;
     this->nextNode = t_nextNode;
 }
@@ -53,6 +58,7 @@ Node::~Node()
 class LinkList
 {
 private:
+    // the list will just hold a pointer to the first Node
     Node *first_node;
 public:
     LinkList(int, Node*);
@@ -64,15 +70,19 @@ public:
 
 LinkList::LinkList(int t_x, Node* t_ptr = nullptr)
 {
-    // we will point to the first node!
+    // start list by creating node, and pointing to it
     this->first_node = new Node(t_ptr, t_x);
+    std::cout << "list created!" << std::endl;
 }
 
 void LinkList::printlist()
 {
+    // print all the nodes attached to list
     Node* nextNode = this->first_node;
+    // loop through all of the nodes stopping when nullptr
     while (nextNode != nullptr)
     {
+        // might be un-necissary
         Node* thisnode = nextNode;
         nextNode = thisnode->getptr();
         std::cout << thisnode->getx() << std::endl;
@@ -82,16 +92,21 @@ void LinkList::printlist()
 
 void LinkList::addnode(int t_x)
 {
+    // adds a node to the end of the linked list
+    // create the node that will be added in teh heap
     Node* newnode = new Node(nullptr, t_x);
     Node* nextnode = this->first_node;
     Node* thisnode = nullptr;
+    // loop through the list
     while (nextnode != nullptr)
     {
-        thisnode = nextnode; /// both point to first node
-        nextnode = thisnode->getptr(); /// node what is the next node?
+        thisnode = nextnode; 
+        nextnode = thisnode->getptr();
     }
     // list(node(10)-> node(20)-> null)
+    // append node to end of list
     thisnode->setptr(newnode);
+    // newnode already has nullptr set done!
     std::cout << "added new node..." << std::endl;
 
 }
@@ -101,15 +116,15 @@ void LinkList::removenode(int x)
     // loop through list, and look for x value and remove it...
     Node* nextnode = this->first_node;
     
-    // what is the problem, read access vio, but the next node only loops if not null, so how am I getting this error
+    // what is the problem, read 
     while (nextnode->getptr() != nullptr)
     {
         // traverse the linked list
         Node* thisnode = nextnode;
         nextnode = thisnode->getptr();
+        // when the node is found then remove it
         if (nextnode->getx() == x)
         {
-            // remove this node
             // grab the node after
             Node* rejoin = nextnode->getptr();
 
@@ -122,7 +137,9 @@ void LinkList::removenode(int x)
             // continue looping
             nextnode = rejoin;
 
-            // final node deletion exception fix
+            std::cout << "node deleted :" << x << std::endl;
+
+            // final node deletion exception fix, this is not a loop cond for efficiency
             if (nextnode == nullptr)
             {
                 // is last node, so no need to loop anymore
@@ -138,7 +155,8 @@ LinkList::~LinkList()
 {
     // starting at the first node, we delete then move to the next adn then delete
     Node* nextNode = this->first_node;
-
+    
+    // loop through list
     while (nextNode != nullptr)
     {
         // hold this node in one pointer and the next in the other
@@ -147,6 +165,9 @@ LinkList::~LinkList()
         // delete one node, while pointer holds on to next node
         delete thisnode;
     }
+
+    // make sure that we aren't pointing to heap for no reason
+    this->first_node = nullptr;
     std::cout << "list deleted!" << std::endl;
 }
 
