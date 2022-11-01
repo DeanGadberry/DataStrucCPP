@@ -97,7 +97,7 @@ void LinkList::printlistex()
     Node* currentNode = this->first_node;
     std::cout << "printing list with \"printlistex\":" << std::endl;
     // loop through list, and print each node
-    while (currentNode->getptr() != nullptr)
+    while (currentNode != nullptr)
     {
         // print current node var
         std::cout << currentNode->getx() << std::endl;
@@ -205,4 +205,7 @@ int main()
     list.removenode(10);
 
     list.printlist();
+    int input = {};
+    std::cin >> input;
+    std::cout << input;
 }
