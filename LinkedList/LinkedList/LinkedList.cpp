@@ -63,6 +63,7 @@ private:
 public:
     LinkList(int, Node*);
     void printlist();
+    void printlistex();
     void addnode(int);
     void removenode(int);
     ~LinkList();
@@ -88,6 +89,22 @@ void LinkList::printlist()
         std::cout << thisnode->getx() << std::endl;
     }
     std::cout << "end of list" << std::endl;
+}
+
+void LinkList::printlistex()
+{
+    // prints all of the nodes attached to list but more optimised
+    Node* currentNode = this->first_node;
+    std::cout << "printing list with \"printlistex\":" << std::endl;
+    // loop through list, and print each node
+    while (currentNode->getptr() != nullptr)
+    {
+        // print current node var
+        std::cout << currentNode->getx() << std::endl;
+        // go to next node
+        currentNode = currentNode->getptr();
+    }
+    std::cout << "end of list..." << std::endl;
 }
 
 void LinkList::addnode(int t_x)
@@ -182,6 +199,7 @@ int main()
     }
     
     list.printlist();
+    list.printlistex();
 
     list.removenode(4);
     list.removenode(10);
