@@ -1,6 +1,7 @@
 // LinkedList.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 // to-do:
+//      -optimize print list member function
 //      -create a ordered linkedlist
 //      -first node is not deleted
 
