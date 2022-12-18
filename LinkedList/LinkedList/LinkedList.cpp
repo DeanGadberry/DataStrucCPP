@@ -1,9 +1,8 @@
 // LinkedList.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 // to-do:
-//      -optimize print list member function
-//      -create a ordered linkedlist
-//      -first node is not deleted
+//      -[ ]create a ordered linkedlist
+
 
 #include <iostream>
 
@@ -79,7 +78,7 @@ void LinkList::printlist()
 {
     // prints all of the nodes attached to list but more optimised
     Node* currentNode = this->first_node;
-    std::cout << "printing list with \"printlistex\":" << std::endl;
+    std::cout << "printing list:" << std::endl;
     // loop through list, and print each node
     while (currentNode != nullptr)
     {
@@ -117,40 +116,55 @@ void LinkList::removenode(int x)
     // loop through list, and look for x value and remove it...
     Node* nextnode = this->first_node;
     
-    // what is the problem, read 
-    while (nextnode->getptr() != nullptr)
+    if (nextnode->getx() == x)
     {
-        // traverse the linked list
-        Node* thisnode = nextnode;
-        nextnode = thisnode->getptr();
-        // when the node is found then remove it
-        if (nextnode->getx() == x)
+        // then the first node is the value
+        this->first_node = nextnode->getptr();
+
+        // reallocate memory at the first node
+        delete nextnode;
+
+        // set nextnode so no longer pointing to unalloc mem
+        nextnode = nullptr;
+    }
+    else
+    {
+        // what is the problem, read 
+        while (nextnode->getptr() != nullptr)
         {
-            // grab the node after
-            Node* rejoin = nextnode->getptr();
-
-            // this node set beyond next node
-            thisnode->setptr(rejoin);
-
-            // after the node is unlinked, then remove the node
-            delete nextnode;
-
-            // continue looping
-            nextnode = rejoin;
-
-            std::cout << "node deleted :" << x << std::endl;
-
-            // final node deletion exception fix, this is not a loop cond for efficiency
-            if (nextnode == nullptr)
+            // traverse the linked list
+            Node* thisnode = nextnode;
+            nextnode = thisnode->getptr();
+            // when the node is found then remove it
+            if (nextnode->getx() == x)
             {
-                // is last node, so no need to loop anymore
-                break;
-            }
-        }
+                // grab the node after
+                Node* rejoin = nextnode->getptr();
 
+                // this node set beyond next node
+                thisnode->setptr(rejoin);
+
+                // after the node is unlinked, then remove the node
+                delete nextnode;
+
+                // continue looping
+                nextnode = rejoin;
+
+                std::cout << "node deleted :" << x << std::endl;
+
+                // final node deletion exception fix, this is not a loop cond for efficiency
+                if (nextnode == nullptr)
+                {
+                    // is last node, so no need to loop anymore
+                    break;
+                }
+            }
+
+        }
     }
 
 }
+
 
 LinkList::~LinkList()
 {
@@ -183,7 +197,6 @@ int main()
     }
     
     list.printlist();
-    list.printlistex();
 
     list.removenode(4);
     list.removenode(10);
