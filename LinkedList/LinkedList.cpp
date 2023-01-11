@@ -5,76 +5,18 @@
 
 
 #include <iostream>
-
-class Node
-{
-private:
-    int x;
-    Node *nextNode;
-
-public:
-    Node(Node*, int);
-    void setx(int);
-    void setptr(Node*);
-    int getx();
-    Node* getptr();
-    ~Node();
-};
-
-Node::Node(Node *t_nextNode = nullptr, int t_x = 10)
-{
-    // set the Node's val and it's pointer
-    this->x = t_x;
-    this->nextNode = t_nextNode;
-}
-
-void Node::setx(int t_x)
-{
-    this->x = t_x;
-}
-
-void Node::setptr(Node* t_nextNode)
-{
-    this->nextNode = t_nextNode;
-}
-
-int Node::getx()
-{
-    return this->x;
-}
-
-Node* Node::getptr()
-{
-    return this->nextNode;
-}
-
-Node::~Node()
-{
-
-}
+#include "Node.h"
+#include "LinkedList.h"
 
 
-class LinkList
-{
-private:
-    // the list will just hold a pointer to the first Node
-    Node *first_node;
-public:
-    LinkList(int, Node*);
-    void printlist();
-    void addnode(int);
-    void removenode(int);
-    ~LinkList();
-};
-
-LinkList::LinkList(int t_x, Node* t_ptr = nullptr)
+LinkedList::LinkedList(int t_x, Node* t_ptr = nullptr)
 {
     // start list by creating node, and pointing to it
     this->first_node = new Node(t_ptr, t_x);
     std::cout << "list created!" << std::endl;
 }
 
-void LinkList::printlist()
+void LinkedList::printlist()
 {
     // prints all of the nodes attached to list but more optimised
     Node* currentNode = this->first_node;
@@ -90,7 +32,7 @@ void LinkList::printlist()
     std::cout << "end of list..." << std::endl;
 }
 
-void LinkList::addnode(int t_x)
+void LinkedList::addnode(int t_x)
 {
     // adds a node to the end of the linked list
     // create the node that will be added in teh heap
@@ -111,7 +53,7 @@ void LinkList::addnode(int t_x)
 
 }
 
-void LinkList::removenode(int x)
+void LinkedList::removenode(int x)
 {
     // loop through list, and look for x value and remove it...
     Node* nextnode = this->first_node;
@@ -166,7 +108,7 @@ void LinkList::removenode(int x)
 }
 
 
-LinkList::~LinkList()
+LinkedList::~LinkedList()
 {
     // starting at the first node, we delete then move to the next adn then delete
     Node* nextNode = this->first_node;
@@ -184,22 +126,4 @@ LinkList::~LinkList()
     // make sure that we aren't pointing to heap for no reason
     this->first_node = nullptr;
     std::cout << "list deleted!" << std::endl;
-}
-
-int main()
-{
-
-    // first node val 10, points to nothing
-    LinkList list(10, nullptr);
-    for (int i = 0; i <= 10; i++)
-    {
-        list.addnode(i);
-    }
-    
-    list.printlist();
-
-    list.removenode(4);
-    list.removenode(10);
-
-    list.printlist();
 }
