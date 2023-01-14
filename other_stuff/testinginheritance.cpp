@@ -14,7 +14,7 @@ private:
 
 
 
-int main()
+int notmain()
 {
 
     int stop{};
