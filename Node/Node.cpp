@@ -27,11 +27,5 @@ Data Node<Data>::getx()
 }
 
 template <class Data>
-Node* Node<Data>::getptr()
-{
-    return this->nextNode;
-}
-
-template <class Data>
 Node<Data>::~Node()
 {}

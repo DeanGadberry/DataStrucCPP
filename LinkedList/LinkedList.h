@@ -1,20 +1,19 @@
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
 
-
+template <class NodeData>
 class LinkedList
 {
     private:
         // the list will just hold a pointer to the first Node
-        Node *first_node;
+        Node<NodeData> *first_node;
     public:
-        LinkedList(int, Node*);
+        LinkedList(NodeData, Node<NodeData>*);
         void printlist();
-        void addnode(int);
-        void removenode(int);
+        void addnode(NodeData);
+        void removenode(NodeData);
         ~LinkedList();
 };
-
 
 
 #endif

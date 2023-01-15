@@ -8,18 +8,19 @@
 #include "Node.h"
 #include "LinkedList.h"
 
-
-LinkedList::LinkedList(int t_x, Node* t_ptr = nullptr)
+template <class NodeData>
+LinkedList<NodeData>::LinkedList(NodeData t_x, Node<NodeData>* t_ptr)
 {
     // start list by creating node, and pointing to it
-    this->first_node = new Node(t_ptr, t_x);
+    this->first_node = new Node<NodeData>(t_ptr, t_x);
     std::cout << "list created!" << std::endl;
 }
 
-void LinkedList::printlist()
+template <class NodeData>
+void LinkedList<NodeData>::printlist()
 {
     // prints all of the nodes attached to list but more optimised
-    Node* currentNode = this->first_node;
+    Node<NodeData>* currentNode = this->first_node;
     std::cout << "printing list:" << std::endl;
     // loop through list, and print each node
     while (currentNode != nullptr)
@@ -32,13 +33,14 @@ void LinkedList::printlist()
     std::cout << "end of list..." << std::endl;
 }
 
-void LinkedList::addnode(int t_x)
+template <class NodeData>
+void LinkedList<NodeData>::addnode(NodeData t_x)
 {
     // adds a node to the end of the linked list
     // create the node that will be added in teh heap
-    Node* newnode = new Node(nullptr, t_x);
-    Node* nextnode = this->first_node;
-    Node* thisnode = nullptr;
+    Node<NodeData>* newnode = new Node(nullptr, t_x);
+    Node<NodeData>* nextnode = this->first_node;
+    Node<NodeData>* thisnode = nullptr;
     // loop through the list
     while (nextnode != nullptr)
     {
@@ -53,10 +55,11 @@ void LinkedList::addnode(int t_x)
 
 }
 
-void LinkedList::removenode(int x)
+template <class NodeData>
+void LinkedList<NodeData>::removenode(NodeData x)
 {
     // loop through list, and look for x value and remove it...
-    Node* nextnode = this->first_node;
+    Node<NodeData>* nextnode = this->first_node;
     
     if (nextnode->getx() == x)
     {
@@ -75,13 +78,13 @@ void LinkedList::removenode(int x)
         while (nextnode->getptr() != nullptr)
         {
             // traverse the linked list
-            Node* thisnode = nextnode;
+            Node<NodeData>* thisnode = nextnode;
             nextnode = thisnode->getptr();
             // when the node is found then remove it
             if (nextnode->getx() == x)
             {
                 // grab the node after
-                Node* rejoin = nextnode->getptr();
+                Node<NodeData>* rejoin = nextnode->getptr();
 
                 // this node set beyond next node
                 thisnode->setptr(rejoin);
@@ -107,17 +110,17 @@ void LinkedList::removenode(int x)
 
 }
 
-
-LinkedList::~LinkedList()
+template <class NodeData>
+LinkedList<NodeData>::~LinkedList()
 {
     // starting at the first node, we delete then move to the next adn then delete
-    Node* nextNode = this->first_node;
+    Node<NodeData> nextNode = this->first_node;
     
     // loop through list
     while (nextNode != nullptr)
     {
         // hold this node in one pointer and the next in the other
-        Node* thisnode = nextNode;
+        Node<NodeData>* thisnode = nextNode;
         nextNode = thisnode->getptr();
         // delete one node, while pointer holds on to next node
         delete thisnode;
