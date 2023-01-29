@@ -1,7 +1,7 @@
 #ifndef NODETEMPLATE_H
 #define NODETEMPLATE_H
 
-template <class Data>
+template <typename Data>
 class NodeTemplate
 {
     private:
@@ -9,9 +9,9 @@ class NodeTemplate
         NodeTemplate *nextNode;
 
     public:
-        NodeTemplate<Data>(NodeTemplate<Data>*, Data);
-        void setx(Data);
-        void setptr(NodeTemplate<Data>*);
+        NodeTemplate<Data>(NodeTemplate<Data>* t_nextNode, Data t_x);
+        void setx(Data t_x);
+        void setptr(NodeTemplate<Data>* t_nextNode);
         Data getx();
         // I have to put this here cause vs is dumb
         NodeTemplate<Data>* getptr();
