@@ -2,24 +2,20 @@
 #define NODETEMPLATE_H
 
 template <class Data>
-class Node
+class NodeTemplate
 {
     private:
         Data x;
-        Node *nextNode;
+        NodeTemplate *nextNode;
 
     public:
-        Node(Node*, Data);
+        NodeTemplate<Data>(NodeTemplate<Data>*, Data);
         void setx(Data);
-        void setptr(Node*);
+        void setptr(NodeTemplate<Data>*);
         Data getx();
         // I have to put this here cause vs is dumb
-        template <class Data>
-        Node* Node<Data>::getptr()
-        {
-            return this->nextNode;
-        }
-        ~Node();
+        NodeTemplate<Data>* getptr();
+        ~NodeTemplate<Data>();
 };
 
 
